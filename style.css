@@ -1,0 +1,119 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-color: #31303e;
+  --color-font: #fff;
+  --bg-main: #2596be;
+  --color-border: #fff;
+  --border-radius: 5px;
+}
+
+/************ GENERAL *******/
+body {
+  background-color: var(--bg-color);
+  color: var(--color-font);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 10px;
+}
+
+/******** HEADER ********/
+
+/******* MAIN ********/
+
+.add-button {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 5px;
+}
+
+#add {
+  width: 64px;
+  height: 44px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
+  background-color: var(--bg-main);
+  color: var(--color-font);
+}
+
+#todo-container {
+  padding: 10px;
+  background-color: #686868;
+  border-radius: var(--border-radius);
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  display: grid;
+  grid-template-columns: auto 44px;
+  grid-template-areas:
+    "title id"
+    "description check"
+    "desc-info check"
+    "finish check"
+    "finish-info check"
+    "option option";
+
+  align-items: center;
+  row-gap: 5px;
+}
+
+.title {
+  grid-area: title;
+}
+
+.id {
+  grid-area: id;
+}
+
+.description {
+  grid-area: description;
+}
+
+.desc-info {
+  grid-area: desc-info;
+}
+
+.finish {
+  grid-area: finish;
+}
+
+.finish-info {
+  grid-area: finish-info;
+}
+
+.check {
+  grid-area: check;
+}
+
+.option {
+  grid-area: option;
+}
+
+ul li input {
+  width: 44px;
+  height: 44px;
+}
+
+li button {
+  width: 64px;
+  height: 44px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border);
+  background-color: var(--bg-main);
+  color: var(--color-font);
+}
+
+/* .item div {
+  display: flex;
+  justify-content: space-between;
+  background-color: red;
+} */
+
+/****** FOOTER *****/
