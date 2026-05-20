@@ -1,4 +1,4 @@
-import { getLocal, updateItem } from "./update.js";
+import { getLocal, removeItem, updateItem } from "./update.js";
 import { editDialog } from "./dialog.js";
 
 export function buildContainer(): void {
@@ -28,7 +28,15 @@ export function buildContainer(): void {
         checkbox.setAttribute("type", "checkbox");
 
         if (item.finishedDate != null) {
-            pFinishedDate.innerHTML = `${item.finishedDate}`;
+
+            const today = new Date(item.finishedDate);
+
+                const formatDate = new Intl.DateTimeFormat("pt-BR", {
+                    dateStyle: "short",
+                    timeStyle: "short"
+                }).format(today)
+
+            pFinishedDate.innerHTML = `${formatDate}`;
             li.appendChild(pFinishedDate);
 
             checkbox.checked = true;
@@ -42,14 +50,16 @@ export function buildContainer(): void {
 
                 pFinishedDate.innerHTML = `${new Date()}`
 
-                updateItem(item.id, true);
+                updateItem(item.id, true, item.title, item.description, item.priority);
 
                 
             } else {
                 pFinishedDate.innerHTML = ``;
 
-                updateItem(item.id, false);
+                updateItem(item.id, false, item.title, item.description, item.priority);
             }
+
+            buildContainer();
         })
 
 
@@ -59,21 +69,33 @@ export function buildContainer(): void {
 
         const editButton = document.createElement("button");
         editButton.textContent = "Edit";
+        // editButton.classList.add("editButton")
 
         editButton.addEventListener("click", () => {
 
-            editDialog(item.title, item.description, item.priority)
+            let check: boolean;
+
+            if (item.finishedDate != null) {
+                check = true;
+            } else {
+                check = false;
+            }
+
+            editDialog(item.title, item.description, item.priority, item.id, check)
 
         })
 
-
         divOption.appendChild(editButton);
-        
+    
         const removeButton = document.createElement("button");
         
         removeButton.textContent = "Remove";
-        
-        //TODO
+        // removeButton.classList.add("removeButton")
+
+        removeButton.addEventListener("click", () => {
+            removeItem(item.id)
+            buildContainer();
+        })
 
         divOption.appendChild(removeButton);
 

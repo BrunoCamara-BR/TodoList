@@ -1,12 +1,5 @@
 import { Todo, Priority } from "../interfaces/Todo.js";
 
-// const item: Todo = {
-//     id: idGenerator(),
-//     title: "Title Example",
-//     description: "Description Example",
-//     priority: Priority.HIGH
-// }
-
 function idGenerator(): number {
     const data = getLocal();
 
@@ -56,7 +49,7 @@ function updateLocal(item: Todo): void {
     setLocal(data);
 }
 
-export function updateItem(id: number, isChecked: boolean): void {
+export function updateItem(id: number, isChecked: boolean, title: string, description: string, priority: Priority): void {
     const data = getLocal();
 
     const item = data.find(element => element.id === id);
@@ -69,7 +62,19 @@ export function updateItem(id: number, isChecked: boolean): void {
         delete item.finishedDate;
     }
 
+    item.title = title;
+    item.description = description;
+    item.priority = priority;
+
     setLocal(data);
 
 }
 
+export function removeItem(id: number) {
+    const data = getLocal();
+
+    const index = data.findIndex(item => item.id === id);
+    data.splice(index, 1);
+
+    setLocal(data);
+}

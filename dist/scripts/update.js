@@ -1,9 +1,3 @@
-// const item: Todo = {
-//     id: idGenerator(),
-//     title: "Title Example",
-//     description: "Description Example",
-//     priority: Priority.HIGH
-// }
 function idGenerator() {
     const data = getLocal();
     const idList = data.reduce((acc, item) => {
@@ -36,7 +30,7 @@ function updateLocal(item) {
     data.push(item);
     setLocal(data);
 }
-export function updateItem(id, isChecked) {
+export function updateItem(id, isChecked, title, description, priority) {
     const data = getLocal();
     const item = data.find(element => element.id === id);
     if (!item)
@@ -47,6 +41,15 @@ export function updateItem(id, isChecked) {
     else {
         delete item.finishedDate;
     }
+    item.title = title;
+    item.description = description;
+    item.priority = priority;
+    setLocal(data);
+}
+export function removeItem(id) {
+    const data = getLocal();
+    const index = data.findIndex(item => item.id === id);
+    data.splice(index, 1);
     setLocal(data);
 }
 //# sourceMappingURL=update.js.map

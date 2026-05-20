@@ -1,62 +1,83 @@
 import { Priority } from "../interfaces/Todo.js";
 import { buildContainer } from "./buildContainer.js";
-import { addItem } from "./update.js";
+import { addItem, updateItem } from "./update.js";
 const dialog = document.querySelector("#dialog");
 const addButton = document.querySelector("#add");
 const closeDialog = document.querySelector("#closeDialog");
 const saveButton = document.querySelector("#save");
-addButton.addEventListener("click", () => {
+// Add dialog
+const title = document.querySelector("#title");
+const description = document.querySelector("#description");
+const low = document.querySelector("#low");
+const medium = document.querySelector("#medium");
+const high = document.querySelector("#high");
+// dialog EDIT
+const dialogEdit = document.querySelector("#dialogEdit");
+const titleEdit = document.querySelector("#titleEdit");
+const descriptionEdit = document.querySelector("#descriptionEdit");
+const dialogEditButton = document.querySelector("#update");
+const lowEdit = document.querySelector("#lowEdit");
+const mediumEdit = document.querySelector("#mediumEdit");
+const highEdit = document.querySelector("#highEdit");
+addButton.addEventListener("click", (e) => {
+    e.preventDefault();
     dialog.showModal();
+    title.value = "";
+    description.value = "";
+    low.checked = false;
+    medium.checked = false;
+    high.checked = false;
 });
-closeDialog.addEventListener("click", () => {
+closeDialog.addEventListener("click", (e) => {
+    e.preventDefault();
     dialog.close();
 });
-saveButton.addEventListener("click", () => {
-    event?.preventDefault();
-    const title = document.querySelector("#title");
-    const description = document.querySelector("#description");
-    const low = document.querySelector("#low");
-    const medium = document.querySelector("#medium");
-    const high = document.querySelector("#high");
+saveButton.addEventListener("click", (e) => {
+    e.preventDefault();
     let priorityItem;
-    if (low.checked) {
+    if (low.checked)
         priorityItem = Priority.LOW;
-    }
-    else if (medium.checked) {
+    if (medium.checked)
         priorityItem = Priority.MEDIUM;
-    }
-    else {
+    if (high.checked)
         priorityItem = Priority.HIGH;
-    }
+    if (!priorityItem)
+        return;
     addItem(title.value, priorityItem, description.value);
     dialog.close();
     buildContainer();
 });
-export function editDialog(title, description, priority) {
-    const dialogEdit = document.querySelector("#dialogEdit");
-    const titleEdit = document.querySelector("#titleEdit");
+export function editDialog(title, description, priority, id, isChecked) {
     titleEdit.value = title;
-    const descriptionEdit = document.querySelector("#descriptionEdit");
     descriptionEdit.value = description;
-    if (priority === Priority.LOW) {
-        const low = document.querySelector("#lowEdit");
-        low.checked;
+    if (priority === "low") {
+        lowEdit.checked = true;
     }
-    else if (priority === Priority.MEDIUM) {
-        const medium = document.querySelector("#mediumEdit");
-        medium.checked;
+    if (priority === "medium") {
+        mediumEdit.checked = true;
     }
-    else {
-        const high = document.querySelector("#highEdit");
-        high.checked;
+    if (priority === "high") {
+        highEdit.checked = true;
     }
     dialogEdit.showModal();
-    const dialogEditButton = document.querySelector("#update");
-    dialogEditButton.addEventListener("click", () => {
-        //TODO
+    dialogEditButton.addEventListener("click", (e) => {
+        // e.preventDefault();
+        let priority;
+        if (lowEdit.checked) {
+            priority = Priority.LOW;
+        }
+        if (mediumEdit.checked) {
+            priority = Priority.MEDIUM;
+        }
+        else {
+            priority = Priority.HIGH;
+        }
+        updateItem(id, isChecked, titleEdit.value, descriptionEdit.value, priority);
+        dialogEdit.close();
     });
     const closeDialogEdit = document.querySelector("#closeDialogEdit");
-    closeDialogEdit.addEventListener("click", () => {
+    closeDialogEdit.addEventListener("click", (e) => {
+        e.preventDefault();
         dialogEdit.close();
     });
 }

@@ -10,6 +10,7 @@
   --bg-main: #2596be;
   --color-border: #fff;
   --border-radius: 5px;
+  --bg-colo-list: #686868;
 }
 
 /************ GENERAL *******/
@@ -18,9 +19,21 @@ body {
   color: var(--color-font);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 10px;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 /******** HEADER ********/
+
+header {
+  display: flex;
+  justify-content: right;
+}
+
+header img {
+  width: 100px;
+  height: 100px;
+}
 
 /******* MAIN ********/
 
@@ -39,13 +52,10 @@ body {
   color: var(--color-font);
 }
 
-#todo-container {
-  padding: 10px;
-  background-color: #686868;
-  border-radius: var(--border-radius);
-}
-
 ul {
+  padding: 10px;
+  border-radius: var(--border-radius);
+  background-color: var(--bg-color);
   list-style: none;
 }
 
@@ -62,14 +72,25 @@ li {
 
   align-items: center;
   row-gap: 5px;
+  border-bottom: 1px solid var(--bg-main);
+  margin-bottom: 10px;
+  background-color: var(--bg-colo-list);
+  padding: 10px;
+  border-radius: var(--border-radius);
 }
 
 .title {
   grid-area: title;
+  font-size: 24px;
+}
+
+.priority {
+  color: #8ccae0;
 }
 
 .id {
   grid-area: id;
+  color: #ccc;
 }
 
 .description {
@@ -94,11 +115,20 @@ li {
 
 .option {
   grid-area: option;
+  display: flex;
+  justify-content: left;
+  gap: 10px;
 }
 
 ul li input {
   width: 44px;
   height: 44px;
+}
+
+ul li input:checked {
+  width: 44px;
+  height: 44px;
+  accent-color: var(--bg-main);
 }
 
 li button {
@@ -108,6 +138,61 @@ li button {
   border: 1px solid var(--color-border);
   background-color: var(--bg-main);
   color: var(--color-font);
+  margin-bottom: 10px;
+}
+
+dialog {
+  margin: 20% auto;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  color: var(--color-font);
+  background-color: var(--bg-colo-list);
+  border: 1px solid;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+dialog h2 {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+form div {
+  /* background-color: red; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 10px;
+  gap: 5px;
+}
+
+form input {
+  padding: 5px;
+}
+
+form textarea {
+  padding: 5px;
+}
+
+form label {
+  font-size: 18px;
+}
+
+form button {
+  color: var(--color-font);
+  background-color: var(--bg-main);
+  border: 1px solid;
+  border-color: var(--color-border);
+  height: 44px;
 }
 
 /* .item div {
